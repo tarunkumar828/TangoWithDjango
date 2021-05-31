@@ -1,0 +1,51 @@
+{% extends 'rango/base.html'%}
+
+{% load static %}
+
+{% block title_block %}
+  Tango with Django
+{% endblock %}
+{% block body_block %}
+  <div class="display-3">Rango says ... <h1>
+
+        <br />
+
+          {% if user.is_authenticated %}
+            <h1> Howdy {{user.username}}</h1>
+          {% else %}
+            <h1>Hey There Partner !!!</h1>
+          {% endif %}
+        <br />
+  </div>
+  <div class="row marketing">
+    <div class="col-lg-6">
+        <h4> MOST LIKED CATEGORIES </h4>
+        <p>
+        {% if categories %}
+        <ul class="list-group">
+          {% for category in categories %}
+            <li class="list-group-item"><a href="{% url 'rango:show_category' category.slug %}">{{category.name}}</a></li>
+          {% endfor %}
+        </ul>
+          {% else %}
+              <strong> There are no categories present </strong>
+        {% endif %}
+        </p>
+    </div>
+
+    <div class="col-lg-6">
+        <h4> MOST VIEWED PAGES </h4>
+        <p>
+          {% if pages %}
+          <ul class="list-group">
+            {% for page in pages %}
+            <li class="list-group-item"><a href={{page.url}} >{{page.title}}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </p>
+        <p>visits : {{ visits }}</p>
+    </div>
+        <img src ="{% static "/images/rango.jpg" %}" alt ="Picture of rango" />
+
+{% endblock %}
